@@ -1,4 +1,6 @@
 package is.ru.stringcalculator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Calculator {
 
@@ -13,11 +15,24 @@ public class Calculator {
     }
 
     public static String[] extractNumbers(String string){
+	String delimiters = ",|\n";
+	
 	if (string.isEmpty()){
             return new String[0];
         }
-        else{
-	    return string.split(DELIMITERS);
+        else if (string.startsWith("//")){
+	    Matcher m = Pattern.compile("//(\\[*.*\\]*)\n(.*)").matcher(string);
+	    if (m.find()){
+		delimiters = m.group(1);
+		string = m.group(2);
+	    }
+	    
+	    return string.split(delimiters);
+	
+	}
+	
+	else{
+	    return string.split(delimiters);
 	}
     }
    

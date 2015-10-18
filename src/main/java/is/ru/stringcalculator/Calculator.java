@@ -6,12 +6,22 @@ public class Calculator {
 	if (text.isEmpty()){
 	    return 0;
 	}
+	else if(text.contains(",")){
+	    String[] numbers = text.split(",");
+	    int total = 0;
+	    for (String number : numbers){
+		total += toInt(number);
+	    }
+	    
+	    return total;
+	}
+
 	else {
-	    return toString(text);
+	    return toInt(text);
 	}
     }
 
-    public static int toString(String string){
+    public static int toInt(String string){
 	return Integer.parseInt(string);
     }
 
